@@ -16,7 +16,8 @@ type Config struct {
 
 // Client クライアント設定情報
 type Client struct {
-	RDS *RDS
+	RDS  *RDS
+	LINE LINE
 }
 
 // RDS データベース設定情報
@@ -26,6 +27,12 @@ type RDS struct {
 	IdleConn int    `mapstructure:"idle_conn"`
 	MaxConn  int    `mapstructure:"max_conn"`
 	Debug    bool   `mapstructure:"debug"`
+}
+
+// LINE line設定情報
+type LINE struct {
+	ChannelSecret string `mapstructure:"channelSecret"`
+	AccessToken   string `mapstructure:"accessToken"`
 }
 
 // NewConfig 各種設定読み込み

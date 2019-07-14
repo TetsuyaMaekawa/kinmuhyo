@@ -13,3 +13,6 @@ log_path = "your logpath"
     max_conn = 10
     debug = true
     
+    [client.line]
+    channelSecret = "yourChannelSecret"
+    accessToken = "yourAccessToken"

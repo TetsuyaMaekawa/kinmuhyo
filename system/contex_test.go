@@ -18,4 +18,9 @@ func TestNewContext(t *testing.T) {
 	if context.Rds == nil {
 		t.Error("Test failed. context.Rds must not be nil.")
 	}
+
+	if context.Line == nil {
+		t.Error("Test failed. context.Line msut not be nil.")
+	}
+
 }
