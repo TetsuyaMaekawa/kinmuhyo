@@ -17,8 +17,12 @@ func TestNewLogger(t *testing.T) {
 		LogPath: "test.log",
 	}
 
-	NewLogger(&conf)
+	if err := NewLogger(&conf); err != nil {
+		t.Errorf("Test failed. Detail: %v", err)
+	}
+
 	log.Print("test")
+
 	if _, err := os.Stat("test.log"); err != nil {
 		t.Error("Test failed. LogFile not found.")
 	}
