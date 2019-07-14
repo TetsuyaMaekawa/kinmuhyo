@@ -3,6 +3,9 @@ package rds
 import (
 	"fmt"
 
+	"rootship.co.jp/kinmuhyo/config"
+
+	_ "github.com/go-sql-driver/mysql" // for mysql
 	"github.com/jinzhu/gorm"
 	"github.com/pkg/errors"
 )
@@ -13,21 +16,22 @@ type Client struct {
 }
 
 // NewClient RDSへの接続を確立
-func NewClient() (*Client, error) {
+func NewClient(conf *config.Config) (*Client, error) {
+	RDS := conf.Client.RDS
 	me := new(Client)
 
 	// コネクション生成
-	db, err := gorm.Open("Dialect", "DSN")
+	db, err := gorm.Open(RDS.Dialect, RDS.Dsn)
 	if err != nil {
 		return nil, errors.Wrapf(err, fmt.Sprintf("Unable to connect databese. Dialect: %v DSN: %v", "Dialect", "DSN"))
 	}
 
 	// プール設定
-	db.DB().SetMaxIdleConns(1)
-	db.DB().SetMaxOpenConns(1)
+	db.DB().SetMaxIdleConns(RDS.IdleConn)
+	db.DB().SetMaxOpenConns(RDS.MaxConn)
 
 	// ログモード設定
-	db.LogMode(true)
+	db.LogMode(RDS.Debug)
 
 	me.DB = db
 	return me, nil
