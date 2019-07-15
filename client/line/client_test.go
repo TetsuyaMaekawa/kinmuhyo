@@ -16,13 +16,13 @@ func TestNewClient(t *testing.T) {
 		},
 	}
 
-	line := NewClient(&conf)
+	line, err := NewClient(&conf)
 
-	if line.AccessToken != "testAccessToken" {
-		t.Error("Test failed. line.AccessToken must be testAccessToken.")
+	if err != nil {
+		t.Errorf("Test failed. err must be nil. Detail: %v", err)
 	}
 
-	if line.ChannelSenret != "testChannelSecret" {
-		t.Error("Test failed. line.ChannelSenret must be testChannelSecret.")
+	if line == nil {
+		t.Error("Test failed. line must not be nil.")
 	}
 }
