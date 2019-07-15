@@ -32,7 +32,10 @@ func NewContext(confPath string) (*Context, error) {
 		return nil, err
 	}
 
-	line := line.NewClient(conf)
+	line, err := line.NewClient(conf)
+	if err != nil {
+		return nil, err
+	}
 
 	me.Conf = conf
 	me.Rds = rds
