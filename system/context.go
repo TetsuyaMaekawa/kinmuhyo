@@ -32,14 +32,14 @@ func NewContext(confPath string) (*Context, error) {
 		return nil, err
 	}
 
-	line, err := line.NewClient(conf)
+	Bot, err := line.NewClient(conf)
 	if err != nil {
 		return nil, err
 	}
 
 	me.Conf = conf
 	me.Rds = rds
-	me.Line = line
+	me.Line = Bot
 
 	return me, nil
 }
