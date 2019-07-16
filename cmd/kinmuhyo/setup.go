@@ -7,6 +7,7 @@ import (
 	"github.com/zenazn/goji"
 	"github.com/zenazn/goji/web"
 
+	"rootship.co.jp/kinmuhyo/handler/kinmuhyo"
 	"rootship.co.jp/kinmuhyo/system"
 )
 
@@ -19,9 +20,11 @@ func setup() {
 		return
 	}
 
+	handler := kinmuhyo.Handler{Rds: context.Rds, Line: context.Line}
+
 	// // Postのルーティング
 	goji.Post("/callback", func(context web.C, writer http.ResponseWriter, request *http.Request) {
-
+		handler.Handler(request)
 	})
 
 }

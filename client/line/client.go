@@ -10,12 +10,13 @@ import (
 
 // Client lineクライアント
 type Client struct {
-	bot *linebot.Client
+	Bot *linebot.Client
 }
 
 // NewClient lineクライアント生成
 func NewClient(conf *config.Config) (*Client, error) {
 	line := conf.Client.LINE
+
 	me := new(Client)
 
 	bot, err := linebot.New(line.ChannelSecret, line.AccessToken)
@@ -23,7 +24,7 @@ func NewClient(conf *config.Config) (*Client, error) {
 		return nil, errors.Wrapf(err, fmt.Sprintf("Unable to connect line. ChannelSecret: %v AccessToken: %v", line.ChannelSecret, line.AccessToken))
 	}
 
-	me.bot = bot
+	me.Bot = bot
 
 	return me, nil
 }
