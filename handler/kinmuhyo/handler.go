@@ -8,6 +8,7 @@ import (
 
 	"rootship.co.jp/kinmuhyo/client/line"
 	"rootship.co.jp/kinmuhyo/client/rds"
+	"rootship.co.jp/kinmuhyo/service"
 )
 
 // Handler Handler設定情報
@@ -27,7 +28,7 @@ func (h *Handler) Handler(request *http.Request) {
 
 	for _, event := range events {
 		if event.Type == linebot.EventTypeMessage {
-
+			service.DistributeAction(h.Rds, event)
 		}
 	}
 }
